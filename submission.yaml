@@ -1,0 +1,44 @@
+# Hackathon Submission Metadata
+# Please fill in the details below for your hackathon submission
+
+team_name: "Vortex"
+project_name: "ChainGuard AI"
+project_description: "AI-powered supply chain security and monitoring platform"
+
+# Team Members
+team_member1:
+  - name: "Harshil Patel"
+    role: "Backend"
+    github: "https://github.com/Harshil7104"
+
+team_member2:
+  - name: "Bhumit Maheshwari"
+    role: "Frontend"
+    github: "https://github.com/Bhumit-Maheshwari"
+
+team_member3:
+  - name: "Rudra Maiyariya"
+    role: "Data and Analytics"
+    github: "https://github.com/RudraMaiyariya"
+
+team_member4:
+  - name: "Deep Valand"
+    role: "Debugging and Presentation"
+    github: "https://github.com/deepvaland0411-creator"
+
+# Technical Details
+tech_stack:
+  - "Node.js"
+  - "Express"
+  - "React"
+  - "Vite"
+
+# Links
+demo_url: "https://drive.google.com/file/d/1ggfca3YEpLkh6XIRc_wITt6Q9Y99CrA-/view?usp=sharing"
+presentation_url: "https://drive.google.com/file/d/1BidewNMY6HVyFmQZAs5wwGaTCy4Olc5L/view?usp=sharing"
+
+# Categories
+categories:
+  - "AI/ML"
+  - "Security"
+  - "Supply Chain"
