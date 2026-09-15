@@ -1,0 +1,333 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-01-20T09:00:00+05:30",
+  "description": "Eight canonical demo scenarios for ChainGuard AI. Each scenario covers a distinct logistics condition. Use scenarioTag on each dataset record to filter by scenario.",
+  "scenarios": [
+    {
+      "id": "A",
+      "tag": "A_NORMAL",
+      "title": "Normal Shipment – On Schedule",
+      "summary": "A standard shipment moving on an unaffected route with an active carrier. Represents the baseline healthy state.",
+      "primaryShipment": "SHP-101",
+      "supportingShipments": ["SHP-106", "SHP-109", "SHP-111", "SHP-112"],
+      "disruption": null,
+      "route": {
+        "current": "RT-010",
+        "alternative": null
+      },
+      "carrier": {
+        "assigned": "CAR-004",
+        "alternative": null
+      },
+      "fleet": {
+        "assignedVehicle": "TR-103",
+        "redeploymentCandidate": null
+      },
+      "coldChain": {
+        "monitored": false,
+        "sensorIds": []
+      },
+      "expectedOutcome": "No action required. Shipment delivered on schedule. Dashboard shows green status.",
+      "backendBehaviour": {
+        "disruptionDetected": false,
+        "riskScoreRange": "0–15",
+        "recommendationExpected": false
+      }
+    },
+    {
+      "id": "B",
+      "tag": "B_MEDIUM_RISK",
+      "title": "Medium-Risk Shipment – Partial Exposure",
+      "summary": "A high-priority shipment operating on a route that passes near a disruption zone, or with a carrier that has moderate utilisation. Risk is elevated but not immediately actionable.",
+      "primaryShipment": "SHP-107",
+      "supportingShipments": [],
+      "disruption": null,
+      "route": {
+        "current": "RT-002",
+        "alternative": null,
+        "notes": "RT-002 is an alternative route being used proactively. Shipment is already safe."
+      },
+      "carrier": {
+        "assigned": "CAR-002",
+        "alternative": null
+      },
+      "fleet": {
+        "assignedVehicle": "TR-108",
+        "redeploymentCandidate": "TR-104"
+      },
+      "coldChain": {
+        "monitored": false,
+        "sensorIds": []
+      },
+      "expectedOutcome": "Shipment proceeds without intervention. Risk score remains medium. Monitor carrier capacity.",
+      "backendBehaviour": {
+        "disruptionDetected": false,
+        "riskScoreRange": "10–40",
+        "recommendationExpected": false
+      }
+    },
+    {
+      "id": "C",
+      "tag": "C_HIGH_RISK",
+      "title": "High-Risk Shipment – Active Disruption on Route",
+      "summary": "A shipment whose current route is actively disrupted. Delay is confirmed. An alternative route exists but no cold chain is involved. Action should be taken promptly.",
+      "primaryShipment": "SHP-110",
+      "supportingShipments": ["SHP-105"],
+      "disruption": "DIS-004",
+      "route": {
+        "current": "RT-008",
+        "alternative": "RT-009",
+        "notes": "RT-008 affected by Varanasi road construction. RT-009 (Eastern DFC rail) is clear."
+      },
+      "carrier": {
+        "assigned": "CAR-006",
+        "alternative": "CAR-006",
+        "notes": "CONCOR can handle both RT-008 and RT-009. Same carrier, different mode."
+      },
+      "fleet": {
+        "assignedVehicle": "TR-105",
+        "redeploymentCandidate": null
+      },
+      "coldChain": {
+        "monitored": false,
+        "sensorIds": []
+      },
+      "expectedOutcome": "Backend recommends switching to RT-009. Delay reduced from 5h to ~2h. No carrier change needed.",
+      "backendBehaviour": {
+        "disruptionDetected": true,
+        "disruptionId": "DIS-004",
+        "riskScoreRange": "45–75",
+        "recommendationExpected": true,
+        "recommendationType": "REROUTE",
+        "recommendedRoute": "RT-009"
+      }
+    },
+    {
+      "id": "D",
+      "tag": "D_CRITICAL",
+      "title": "Critical Shipment – Port Strike + Cold-Chain Excursion",
+      "summary": "PRIMARY DEMO SCENARIO. A vaccine shipment is held at JNPT due to a port strike. The carrier is disrupted, the route is blocked, and a temperature excursion is in progress. All three systems — disruption, route recommendation, and cold-chain alert — are triggered simultaneously.",
+      "primaryShipment": "SHP-102",
+      "supportingShipments": [],
+      "disruption": "DIS-001",
+      "route": {
+        "current": "RT-001",
+        "alternative": "RT-002",
+        "notes": "RT-001 fully blocked. RT-002 via Nhava Sheva ICD is operational with 18t capacity available."
+      },
+      "carrier": {
+        "assigned": "CAR-001",
+        "alternative": "CAR-005",
+        "alternativeSecondary": "CAR-002",
+        "notes": "CAR-001 disrupted (0 capacity). CAR-005 (Snowman) is cold-chain specialist at Pune. CAR-002 (Blue Dart) also cold-chain capable at Nhava Sheva."
+      },
+      "fleet": {
+        "assignedVehicle": null,
+        "redeploymentCandidate": "TR-101",
+        "notes": "TR-101 is idle at Nhava Sheva ICD, refrigerated, carrier CAR-005. Ready for immediate dispatch."
+      },
+      "coldChain": {
+        "monitored": true,
+        "shipmentId": "SHP-102",
+        "sensorIds": ["SNS-102-A", "SNS-102-B"],
+        "criticalReadingId": "CC-008",
+        "criticalTemperature": 11.4,
+        "requiredRange": { "min": 2, "max": 8, "unit": "°C" },
+        "alertTriggeredAt": "2026-01-20T08:00:00+05:30"
+      },
+      "expectedOutcome": "Backend issues CRITICAL alert. Recommends: (1) Assign TR-101 for emergency pickup, (2) Reroute via RT-002, (3) Switch carrier to CAR-005 (preferred) or CAR-002.",
+      "backendBehaviour": {
+        "disruptionDetected": true,
+        "disruptionId": "DIS-001",
+        "riskScoreRange": "90–100",
+        "recommendationExpected": true,
+        "recommendationType": "EMERGENCY_REROUTE_AND_CARRIER_SWAP",
+        "recommendedRoute": "RT-002",
+        "recommendedCarrier": "CAR-005",
+        "recommendedVehicle": "TR-101",
+        "coldChainAlertLevel": 3,
+        "coldChainTriggerReadingId": "CC-008"
+      }
+    },
+    {
+      "id": "E",
+      "tag": "E_TEMPERATURE_SENSITIVE",
+      "title": "Temperature-Sensitive Shipment – Monitoring Active, No Excursion",
+      "summary": "A cold-chain pharmaceutical shipment that is actively monitored. Sensors are nominal. Demonstrates healthy cold-chain monitoring flow — the contrast scenario to D_CRITICAL.",
+      "primaryShipment": "SHP-108",
+      "supportingShipments": [],
+      "disruption": null,
+      "route": {
+        "current": "RT-005",
+        "alternative": null,
+        "notes": "RT-005 chosen proactively over RT-004 due to weather risk. Currently clear."
+      },
+      "carrier": {
+        "assigned": "CAR-005",
+        "alternative": null
+      },
+      "fleet": {
+        "assignedVehicle": "TR-102",
+        "redeploymentCandidate": null
+      },
+      "coldChain": {
+        "monitored": true,
+        "shipmentId": "SHP-108",
+        "sensorIds": ["SNS-108-A", "SNS-108-B"],
+        "criticalReadingId": null,
+        "warningReadingId": "CC-015",
+        "warningNote": "Single transient spike at Krishnagiri checkpoint. Self-recovered. Not an excursion.",
+        "requiredRange": { "min": 2, "max": 8, "unit": "°C" }
+      },
+      "expectedOutcome": "Cold-chain monitoring dashboard shows green with one past warning (CC-015). No recommendation triggered. Delivery on schedule.",
+      "backendBehaviour": {
+        "disruptionDetected": false,
+        "riskScoreRange": "10–25",
+        "recommendationExpected": false,
+        "coldChainAlertLevel": 1,
+        "coldChainTriggerReadingId": "CC-015",
+        "coldChainAlertType": "WARNING_TRANSIENT"
+      }
+    },
+    {
+      "id": "F",
+      "tag": "F_DELAYED",
+      "title": "Delayed Shipment – Weather Event",
+      "summary": "A high-priority industrial shipment delayed by cyclone weather advisory on its primary route. Carrier is on-site but movement is restricted. Alternative route available.",
+      "primaryShipment": "SHP-104",
+      "supportingShipments": [],
+      "disruption": "DIS-003",
+      "route": {
+        "current": "RT-004",
+        "alternative": "RT-005",
+        "notes": "RT-004 restricted (daytime trucks only). RT-005 via Salem adds 70 km but is unrestricted."
+      },
+      "carrier": {
+        "assigned": "CAR-007",
+        "alternative": "CAR-003",
+        "notes": "CAR-007 is on-site but restricted. CAR-003 (VRL Logistics) operates on RT-005 and is available."
+      },
+      "fleet": {
+        "assignedVehicle": "TR-106",
+        "redeploymentCandidate": null,
+        "notes": "TR-106 is on-site with cargo. Cannot redeploy — must complete delivery."
+      },
+      "coldChain": {
+        "monitored": false,
+        "sensorIds": []
+      },
+      "expectedOutcome": "Backend recommends rerouting via RT-005 (Salem). ETA recovers partially from 5h delay to ~2h delay.",
+      "backendBehaviour": {
+        "disruptionDetected": true,
+        "disruptionId": "DIS-003",
+        "riskScoreRange": "40–60",
+        "recommendationExpected": true,
+        "recommendationType": "REROUTE",
+        "recommendedRoute": "RT-005",
+        "recommendedCarrier": "CAR-003"
+      }
+    },
+    {
+      "id": "G",
+      "tag": "G_DISRUPTION_AFFECTED",
+      "title": "Disruption-Affected Shipment – Rail Blocked",
+      "summary": "A garment export shipment on a rail corridor that is blocked due to the port strike. The shipment is halted mid-journey. Demonstrates route blockage and the need for port diversion.",
+      "primaryShipment": "SHP-103",
+      "supportingShipments": [],
+      "disruption": "DIS-001",
+      "route": {
+        "current": "RT-006",
+        "alternative": "RT-007",
+        "notes": "RT-006 (JNPT rail) blocked. RT-007 (DFC western arm to Mundra) is operational — different destination port, but export can proceed via Mundra."
+      },
+      "carrier": {
+        "assigned": "CAR-006",
+        "alternative": "CAR-004",
+        "notes": "CONCOR (CAR-006) operates on RT-007 as well. Spoton (CAR-004) also available on Mundra corridor."
+      },
+      "fleet": {
+        "assignedVehicle": null,
+        "redeploymentCandidate": null
+      },
+      "coldChain": {
+        "monitored": false,
+        "sensorIds": []
+      },
+      "expectedOutcome": "Backend recommends diverting to Mundra via RT-007. Adds ~2 days but unblocks the shipment from an indefinite hold.",
+      "backendBehaviour": {
+        "disruptionDetected": true,
+        "disruptionId": "DIS-001",
+        "riskScoreRange": "70–85",
+        "recommendationExpected": true,
+        "recommendationType": "PORT_DIVERSION",
+        "recommendedRoute": "RT-007",
+        "recommendedCarrier": "CAR-004"
+      }
+    },
+    {
+      "id": "H",
+      "tag": "H_IDLE_REDEPLOYMENT",
+      "title": "Idle Fleet Redeployment",
+      "summary": "Two idle vehicles are available for redeployment. TR-101 (cold-chain, Nhava Sheva) is the critical redeployment asset for the SHP-102 emergency. TR-109 (standard, Jaipur) is available for general Ahmedabad–Delhi corridor assignment.",
+      "primaryShipment": "SHP-102",
+      "supportingShipments": [],
+      "disruption": "DIS-001",
+      "route": {
+        "current": "RT-001",
+        "alternative": "RT-002"
+      },
+      "carrier": {
+        "assigned": "CAR-001",
+        "alternative": "CAR-005"
+      },
+      "fleet": {
+        "idleVehicles": [
+          {
+            "vehicleId": "TR-101",
+            "vehicleType": "Refrigerated Truck",
+            "location": "Nhava Sheva ICD, Navi Mumbai",
+            "coldChainEquipped": true,
+            "redeploymentTarget": "SHP-102",
+            "urgency": "critical",
+            "rationale": "Only idle cold-chain equipped vehicle within proximity of JNPT. Can reach SHP-102 cargo and dispatch via RT-002 within 2 hours."
+          },
+          {
+            "vehicleId": "TR-109",
+            "vehicleType": "Container Truck",
+            "location": "Jaipur, Rajasthan",
+            "coldChainEquipped": false,
+            "redeploymentTarget": null,
+            "urgency": "medium",
+            "rationale": "Idle on Ahmedabad–Delhi corridor. Can be assigned to any standard cargo on RT-010."
+          }
+        ],
+        "partiallyUtilisedVehicles": [
+          {
+            "vehicleId": "TR-104",
+            "availableCapacityTonnes": 11.0,
+            "location": "Ahmedabad Distribution Centre"
+          },
+          {
+            "vehicleId": "TR-107",
+            "availableCapacityTonnes": 26.0,
+            "location": "Delhi NCR ICD (Tughlakabad)"
+          }
+        ]
+      },
+      "coldChain": {
+        "monitored": true,
+        "sensorIds": ["SNS-102-A", "SNS-102-B"]
+      },
+      "expectedOutcome": "Backend identifies TR-101 as optimal redeployment asset. Dispatches TR-101 to JNPT yard for emergency cargo transfer and routing via RT-002.",
+      "backendBehaviour": {
+        "disruptionDetected": true,
+        "disruptionId": "DIS-001",
+        "riskScoreRange": "90–100",
+        "recommendationExpected": true,
+        "recommendationType": "FLEET_REDEPLOYMENT",
+        "recommendedVehicle": "TR-101",
+        "fleetSelectionCriteria": ["coldChainEquipped == true", "status == idle", "proximityToAffectedShipment == near"]
+      }
+    }
+  ]
+}

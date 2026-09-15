@@ -1,0 +1,296 @@
+{
+  "version": "1.0",
+  "description": "Machine-readable integration spec for Bhumit's backend. Defines which data conditions should trigger which backend decisions for each ChainGuard AI engine.",
+  "note": "This file documents data-driven decision rules. Do NOT implement these as hardcoded logic — they are lookup aids. The AI engine should derive these dynamically from the datasets.",
+
+  "disruption_detection": {
+    "description": "How the backend should detect and classify active disruptions.",
+    "dataSource": "disruptions.json",
+    "filterCondition": "status IN [active, monitoring]",
+    "severityMapping": {
+      "critical": { "score": ">= 80", "immediateAction": true },
+      "high":     { "score": "60–79", "immediateAction": false },
+      "medium":   { "score": "40–59", "immediateAction": false },
+      "low":      { "score": "< 40",  "immediateAction": false }
+    },
+    "activeDisruptions": [
+      {
+        "id": "DIS-001",
+        "type": "Port Strike",
+        "severityScore": 95,
+        "affectsRoutes": ["RT-001", "RT-006"],
+        "affectsCarriers": ["CAR-001"],
+        "affectsShipments": ["SHP-102", "SHP-103"],
+        "immediateAction": true
+      },
+      {
+        "id": "DIS-002",
+        "type": "Severe Weather",
+        "severityScore": 72,
+        "affectsRoutes": ["RT-004"],
+        "affectsCarriers": [],
+        "affectsShipments": ["SHP-104", "SHP-108"],
+        "immediateAction": false
+      },
+      {
+        "id": "DIS-003",
+        "type": "Severe Weather",
+        "severityScore": 50,
+        "affectsRoutes": ["RT-004"],
+        "affectsCarriers": ["CAR-007"],
+        "affectsShipments": ["SHP-104"],
+        "immediateAction": false
+      },
+      {
+        "id": "DIS-004",
+        "type": "Road Closure",
+        "severityScore": 48,
+        "affectsRoutes": ["RT-008"],
+        "affectsCarriers": [],
+        "affectsShipments": ["SHP-105", "SHP-110"],
+        "immediateAction": false
+      }
+    ]
+  },
+
+  "risk_scoring": {
+    "description": "How shipment risk scores should be derived. The backend should compute overallRiskScore by combining these inputs.",
+    "dataSource": "shipments.json + disruptions.json + coldChain.json",
+    "inputFields": {
+      "shipmentPriorityScore":  { "source": "shipments[].analytics.shipmentPriorityScore", "weight": 0.20 },
+      "delayRiskScore":         { "source": "shipments[].analytics.delayRiskScore",         "weight": 0.30 },
+      "coldChainRisk":          { "source": "shipments[].analytics.coldChainRisk",           "weight": 0.25 },
+      "disruptionExposure":     { "source": "shipments[].activeDisruption → disruptions[].analytics.disruptionSeverityScore", "weight": 0.25 }
+    },
+    "outputField": "analytics.overallRiskScore",
+    "thresholds": {
+      "low":      "0–25",
+      "medium":   "26–50",
+      "high":     "51–75",
+      "critical": "76–100"
+    },
+    "criticalShipments": [
+      {
+        "shipmentId": "SHP-102",
+        "overallRiskScore": 97,
+        "triggerConditions": [
+          "carrier.status == disrupted",
+          "currentRoute.affected == true",
+          "latestColdChainReading.status == critical",
+          "latestColdChainReading.temperature > requiredTemperatureRange.max"
+        ]
+      }
+    ],
+    "highRiskShipments": ["SHP-103", "SHP-110"],
+    "mediumRiskShipments": ["SHP-104", "SHP-105"]
+  },
+
+  "route_recommendation": {
+    "description": "How the backend should recommend alternative routes when the current route is blocked or high-risk.",
+    "dataSource": "routes.json",
+    "selectionCriteria": [
+      "affected == false",
+      "analytics.isOperational == true",
+      "capacityAvailable >= shipment.weight",
+      "analytics.routeRiskScore < currentRoute.analytics.routeRiskScore",
+      "analytics.recommendForReroute == true"
+    ],
+    "recommendations": [
+      {
+        "blockedRoute": "RT-001",
+        "affectedShipments": ["SHP-102"],
+        "recommendedRoute": "RT-002",
+        "reason": "Port strike blocks RT-001. RT-002 via Nhava Sheva ICD is operational (18t capacity, routeRiskScore=12).",
+        "costIncrease": 3500,
+        "timeIncrease": "1h 30m"
+      },
+      {
+        "blockedRoute": "RT-006",
+        "affectedShipments": ["SHP-103"],
+        "recommendedRoute": "RT-007",
+        "reason": "JNPT rail blocked. DFC western arm to Mundra is operational (40t capacity, routeRiskScore=14).",
+        "costDifference": -7000,
+        "timeChange": "-8h"
+      },
+      {
+        "blockedRoute": "RT-004",
+        "affectedShipments": ["SHP-104"],
+        "recommendedRoute": "RT-005",
+        "reason": "NH-48 weather restriction. RT-005 Salem bypass is clear (25t capacity, routeRiskScore=10).",
+        "costIncrease": 3500,
+        "timeIncrease": "1h 15m"
+      },
+      {
+        "blockedRoute": "RT-008",
+        "affectedShipments": ["SHP-105", "SHP-110"],
+        "recommendedRoute": "RT-009",
+        "reason": "Varanasi road closure delays RT-008. RT-009 Eastern DFC rail is clear (35t capacity, routeRiskScore=16).",
+        "costDifference": -8000,
+        "timeChange": "+4h"
+      }
+    ]
+  },
+
+  "carrier_recommendation": {
+    "description": "How the backend should identify alternative carriers when the assigned carrier is disrupted or unavailable.",
+    "dataSource": "carriers.json",
+    "selectionCriteria": [
+      "status == active",
+      "analytics.isAvailableForAssignment == true",
+      "availableCapacity >= shipment.weight",
+      "operatingRoutes includes recommendedRoute",
+      "IF shipment.temperatureSensitive == true THEN coldChainCapable == true"
+    ],
+    "recommendations": [
+      {
+        "shipmentId": "SHP-102",
+        "disruptedCarrier": "CAR-001",
+        "recommended": [
+          {
+            "carrierId": "CAR-005",
+            "name": "Snowman Logistics",
+            "reason": "Cold-chain specialist, available at Pune, operates RT-002. Highest cold-chain rating.",
+            "rank": 1
+          },
+          {
+            "carrierId": "CAR-002",
+            "name": "Blue Dart Express",
+            "reason": "Cold-chain capable, available at Nhava Sheva, operates RT-002. High reliability (96%).",
+            "rank": 2
+          }
+        ]
+      },
+      {
+        "shipmentId": "SHP-103",
+        "disruptedCarrier": null,
+        "recommended": [
+          {
+            "carrierId": "CAR-004",
+            "name": "Spoton Logistics",
+            "reason": "Operates on Mundra corridor. Available capacity 35t. Handles RT-007 diversion.",
+            "rank": 1
+          }
+        ]
+      },
+      {
+        "shipmentId": "SHP-104",
+        "disruptedCarrier": null,
+        "recommended": [
+          {
+            "carrierId": "CAR-003",
+            "name": "VRL Logistics",
+            "reason": "Operates RT-005. Available capacity 22t. Standard cargo, no cold chain needed.",
+            "rank": 1
+          }
+        ]
+      }
+    ]
+  },
+
+  "fleet_redeployment": {
+    "description": "How the backend should identify and recommend idle or underutilised vehicles for redeployment.",
+    "dataSource": "fleet.json",
+    "selectionCriteria": [
+      "analytics.isRedeploymentCandidate == true",
+      "analytics.availableCapacityTonnes >= shipment.weight",
+      "IF shipment.temperatureSensitive == true THEN coldChainEquipped == true"
+    ],
+    "idleVehicles": [
+      {
+        "vehicleId": "TR-101",
+        "location": "Nhava Sheva ICD, Navi Mumbai",
+        "coldChainEquipped": true,
+        "availableCapacity": 8.0,
+        "redeploymentTarget": "SHP-102",
+        "urgency": "critical",
+        "reason": "Only idle cold-chain equipped vehicle near JNPT. Emergency assignment."
+      },
+      {
+        "vehicleId": "TR-109",
+        "location": "Jaipur, Rajasthan",
+        "coldChainEquipped": false,
+        "availableCapacity": 20.0,
+        "redeploymentTarget": null,
+        "urgency": "medium",
+        "reason": "Idle standard truck. Can be assigned to any general cargo on RT-010."
+      }
+    ],
+    "partiallyUtilised": [
+      {
+        "vehicleId": "TR-104",
+        "utilizationPct": 45,
+        "availableCapacity": 11.0,
+        "location": "Ahmedabad Distribution Centre"
+      },
+      {
+        "vehicleId": "TR-107",
+        "utilizationPct": 35,
+        "availableCapacity": 26.0,
+        "location": "Delhi NCR ICD (Tughlakabad)"
+      }
+    ],
+    "fleetUtilisationSummary": {
+      "totalVehicles": 9,
+      "activeVehicles": 7,
+      "idleVehicles": 2,
+      "averageUtilizationPct": 59.4,
+      "coldChainVehicles": 2,
+      "idleColdChainVehicles": 1
+    }
+  },
+
+  "cold_chain_monitoring": {
+    "description": "How the backend should process cold-chain sensor readings and trigger alerts.",
+    "dataSource": "coldChain.json + shipments.json",
+    "alertLevels": {
+      "0": { "label": "normal",   "triggerAlert": false, "action": "none" },
+      "1": { "label": "warning",  "triggerAlert": true,  "action": "LOG_AND_MONITOR" },
+      "2": { "label": "high",     "triggerAlert": true,  "action": "NOTIFY_CARRIER" },
+      "3": { "label": "critical", "triggerAlert": true,  "action": "EMERGENCY_ESCALATION" }
+    },
+    "filterForAlerts": "analytics.triggerAlert == true",
+    "activeAlerts": [
+      {
+        "shipmentId": "SHP-102",
+        "sensorId": "SNS-102-A",
+        "latestReadingId": "CC-008",
+        "latestTemperature": 11.4,
+        "alertLevel": 3,
+        "confirmedBySecondSensor": true,
+        "secondSensorReadingId": "CC-009",
+        "excursionStartedAt": "2026-01-20T08:00:00+05:30",
+        "excursionDurationMinutes": 60,
+        "requiredRange": { "min": 2, "max": 8, "unit": "°C" },
+        "deviationFromUpperLimit": 3.4,
+        "recommendedAction": "EMERGENCY_REROUTE_AND_VEHICLE_SWAP",
+        "recommendedVehicle": "TR-101",
+        "recommendedCarrier": "CAR-005",
+        "recommendedRoute": "RT-002"
+      }
+    ],
+    "monitoringShipments": ["SHP-102", "SHP-108"],
+    "warningShipments": ["SHP-108"],
+    "criticalShipments": ["SHP-102"]
+  },
+
+  "api_endpoint_map": {
+    "description": "Suggested REST endpoint → data file mappings for Bhumit's backend.",
+    "endpoints": [
+      { "method": "GET", "path": "/api/disruptions",             "dataFile": "disruptions.json",  "notes": "Return all; filter by status for active-only" },
+      { "method": "GET", "path": "/api/disruptions/:id",         "dataFile": "disruptions.json",  "notes": "Return single disruption by ID" },
+      { "method": "GET", "path": "/api/shipments",               "dataFile": "shipments.json",    "notes": "Supports ?riskLevel=, ?status=, ?scenarioTag= filters" },
+      { "method": "GET", "path": "/api/shipments/:id",           "dataFile": "shipments.json",    "notes": "Return single shipment with full analytics block" },
+      { "method": "GET", "path": "/api/fleet",                   "dataFile": "fleet.json",        "notes": "Return all vehicles" },
+      { "method": "GET", "path": "/api/fleet/utilisation",       "dataFile": "fleet.json",        "notes": "Compute aggregate from analytics.fleetUtilizationPct" },
+      { "method": "GET", "path": "/api/fleet/redeployment",      "dataFile": "fleet.json",        "notes": "Filter analytics.isRedeploymentCandidate == true" },
+      { "method": "GET", "path": "/api/routes",                  "dataFile": "routes.json",       "notes": "Supports ?affected=true|false filter" },
+      { "method": "GET", "path": "/api/routes/:id/alternatives", "dataFile": "routes.json",       "notes": "Filter alternativeFor == :id, isOperational == true" },
+      { "method": "GET", "path": "/api/carriers",                "dataFile": "carriers.json",     "notes": "Supports ?coldChainCapable=true, ?status=active filters" },
+      { "method": "GET", "path": "/api/cold-chain",              "dataFile": "coldChain.json",    "notes": "Return all readings" },
+      { "method": "GET", "path": "/api/cold-chain/:shipmentId",  "dataFile": "coldChain.json",    "notes": "Filter by shipmentId; sort by timestamp" },
+      { "method": "GET", "path": "/api/cold-chain/alerts",       "dataFile": "coldChain.json",    "notes": "Filter analytics.triggerAlert == true" },
+      { "method": "GET", "path": "/api/scenarios",               "dataFile": "scenarios.json",    "notes": "Return all 8 demo scenarios" },
+      { "method": "GET", "path": "/api/scenarios/:tag",          "dataFile": "scenarios.json",    "notes": "Match by tag e.g. D_CRITICAL" }
+    ]
+  }
+}

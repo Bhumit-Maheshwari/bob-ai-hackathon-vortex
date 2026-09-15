@@ -12,8 +12,9 @@ export default function Disruptions() {
   const [showResolved, setShowResolved] = useState(false);
 
   const filtered = disruptions.filter((d) => {
-    const matchSeverity = severity === 'All' || d.severity === severity;
-    const matchResolved = showResolved || !d.resolved;
+    const matchSeverity = severity === 'All' ||
+      d.severity?.toLowerCase() === severity.toLowerCase();
+    const matchResolved = showResolved || (d.status !== 'resolved' && d.resolved !== true);
     return matchSeverity && matchResolved;
   });
 
@@ -32,7 +33,10 @@ export default function Disruptions() {
             {s}
             {s !== 'All' && (
               <span style={{ marginLeft: 4, opacity: 0.7 }}>
-                ({disruptions.filter((d) => d.severity === s && (showResolved || !d.resolved)).length})
+                ({disruptions.filter((d) =>
+                  d.severity?.toLowerCase() === s.toLowerCase() &&
+                  (showResolved || (d.status !== 'resolved' && d.resolved !== true))
+                ).length})
               </span>
             )}
           </button>
