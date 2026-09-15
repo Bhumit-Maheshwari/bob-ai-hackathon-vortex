@@ -13,12 +13,13 @@ export default function Shipments() {
     const q = filters.search.toLowerCase();
     const matchSearch =
       !q ||
-      s.trackingNo.toLowerCase().includes(q) ||
-      s.carrier.toLowerCase().includes(q) ||
-      s.origin.toLowerCase().includes(q) ||
-      s.destination.toLowerCase().includes(q);
+      (s.trackingNo || '').toLowerCase().includes(q) ||
+      (s.carrier || '').toLowerCase().includes(q) ||
+      (s.origin || '').toLowerCase().includes(q) ||
+      (s.destination || '').toLowerCase().includes(q) ||
+      (s.cargoType || '').toLowerCase().includes(q);
     const matchStatus = !filters.status || s.status === filters.status;
-    const matchRoute = !filters.route || s.route === filters.route;
+    const matchRoute = !filters.route || (s.currentRoute || s.route) === filters.route;
     return matchSearch && matchStatus && matchRoute;
   });
 

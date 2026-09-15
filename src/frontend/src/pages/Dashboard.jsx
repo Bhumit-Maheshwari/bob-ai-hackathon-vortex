@@ -20,10 +20,10 @@ export default function Dashboard() {
   const ai = useAiRecommendations();
 
   const criticalDisruptions = disruptions.filter(
-    (d) => d.severity === 'Critical' && !d.resolved
+    (d) => d.severity?.toLowerCase() === 'critical' && d.status !== 'resolved'
   );
-  const delayed = shipments.filter(
-    (s) => s.status === 'Delayed' || s.status === 'Critical'
+  const atRisk = shipments.filter(
+    (s) => s.riskLevel === 'critical' || s.riskLevel === 'high'
   ).length;
 
   const loading = shipLoading || disLoading || utilLoading || coldLoading;
@@ -44,14 +44,14 @@ export default function Dashboard() {
       {/* KPI Cards */}
       <div className="stat-grid">
         <StatCard
-          label="Active Shipments"
-          value={shipments.length}
-          sub={`${delayed} delayed or critical`}
-          variant="accent"
+          label="Shipments at Risk"
+          value={atRisk}
+          sub={`of ${shipments.length} total shipments`}
+          variant="warning"
         />
         <StatCard
           label="Active Disruptions"
-          value={disruptions.filter((d) => !d.resolved).length}
+          value={disruptions.filter((d) => d.status === 'active' || d.status === 'monitoring').length}
           sub={`${criticalDisruptions.length} critical`}
           variant="danger"
         />
@@ -64,8 +64,10 @@ export default function Dashboard() {
         <StatCard
           label="Cold-Chain Alerts"
           value={coldAlerts.length}
-          sub="temp breach events"
-          variant="warning"
+          sub={coldAlerts.filter((a) => a.analytics?.alertLevel === 3).length > 0
+            ? `${coldAlerts.filter((a) => a.analytics?.alertLevel === 3).length} critical`
+            : 'temp breach events'}
+          variant="danger"
         />
       </div>
 
@@ -78,7 +80,7 @@ export default function Dashboard() {
             <Link to="/disruptions" className="section-link">View all →</Link>
           </div>
           <div className="disruption-feed">
-            {disruptions.slice(0, 3).map((d) => (
+            {disruptions.filter((d) => d.status !== 'resolved').slice(0, 3).map((d) => (
               <DisruptionCard key={d.id} disruption={d} />
             ))}
           </div>

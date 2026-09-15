@@ -9,12 +9,12 @@ export default function ShipmentTable({ shipments, limit }) {
         <thead>
           <tr>
             <th>Tracking No.</th>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Route</th>
-            <th>Carrier</th>
-            <th>ETA</th>
-            <th>Status</th>
+              <th>Origin → Destination</th>
+              <th>Route</th>
+              <th>Carrier</th>
+              <th>ETA</th>
+              <th>Risk</th>
+              <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -25,11 +25,22 @@ export default function ShipmentTable({ shipments, limit }) {
                   {s.trackingNo}
                 </Link>
               </td>
-              <td>{s.origin}</td>
-              <td>{s.destination}</td>
-              <td><span style={{ fontSize: 11 }}>{s.route}</span></td>
-              <td>{s.carrier}</td>
-              <td>{s.eta}</td>
+              <td style={{ fontSize: 12 }}>
+                {s.origin} → {s.destination}
+                {s.currentLocation && (
+                  <div style={{ fontSize: 11, color: 'var(--muted)' }}>📍 {s.currentLocation}</div>
+                )}
+              </td>
+              <td><span style={{ fontSize: 11 }}>{s.currentRoute || s.route}</span></td>
+              <td style={{ fontSize: 12 }}>{s.carrier}</td>
+              <td style={{ fontSize: 12 }}>
+                {s.expectedDelivery || s.eta
+                  ? new Date(s.expectedDelivery || s.eta).toLocaleDateString('en-IN', {
+                      day: '2-digit', month: 'short',
+                    })
+                  : '—'}
+              </td>
+              <td><StatusBadge status={s.riskLevel || s.status} /></td>
               <td><StatusBadge status={s.status} /></td>
             </tr>
           ))}
