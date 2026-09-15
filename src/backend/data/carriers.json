@@ -14,7 +14,16 @@
     "status": "disrupted",
     "coldChainCapable": true,
     "operatingRoutes": ["RT-001", "RT-006"],
-    "notes": "Primary carrier at JNPT. Currently disrupted due to port strike (DIS-001). No available capacity."
+    "notes": "Primary carrier at JNPT. Currently disrupted due to port strike (DIS-001). No available capacity.",
+    "analytics": {
+      "carrierReliabilityScore": 92,
+      "capacityUtilizationPct": 100,
+      "isAvailableForAssignment": false,
+      "disruptionRisk": "critical",
+      "preferenceRank": 99,
+      "coldChainRating": "certified",
+      "carrierTypeCode": "3PL_ROAD"
+    }
   },
   {
     "id": "CAR-002",
@@ -31,7 +40,16 @@
     "status": "active",
     "coldChainCapable": true,
     "operatingRoutes": ["RT-002", "RT-005"],
-    "notes": "Premium express carrier. Cold-chain equipped. Available for SHP-102 reroute via RT-002."
+    "notes": "Premium express carrier. Cold-chain equipped. Available for SHP-102 reroute via RT-002.",
+    "analytics": {
+      "carrierReliabilityScore": 96,
+      "capacityUtilizationPct": 30,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "none",
+      "preferenceRank": 1,
+      "coldChainRating": "certified",
+      "carrierTypeCode": "EXPRESS_COURIER"
+    }
   },
   {
     "id": "CAR-003",
@@ -48,7 +66,16 @@
     "status": "active",
     "coldChainCapable": false,
     "operatingRoutes": ["RT-004", "RT-005"],
-    "notes": "High-volume road freight. No cold-chain capability."
+    "notes": "High-volume road freight. No cold-chain capability.",
+    "analytics": {
+      "carrierReliabilityScore": 88,
+      "capacityUtilizationPct": 40,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "none",
+      "preferenceRank": 3,
+      "coldChainRating": "none",
+      "carrierTypeCode": "SURFACE_TRANSPORT"
+    }
   },
   {
     "id": "CAR-004",
@@ -65,7 +92,16 @@
     "status": "active",
     "coldChainCapable": false,
     "operatingRoutes": ["RT-003", "RT-010"],
-    "notes": "Strong Gujarat-Rajasthan corridor coverage. Not cold-chain capable."
+    "notes": "Strong Gujarat-Rajasthan corridor coverage. Not cold-chain capable.",
+    "analytics": {
+      "carrierReliabilityScore": 90,
+      "capacityUtilizationPct": 35,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "none",
+      "preferenceRank": 2,
+      "coldChainRating": "none",
+      "carrierTypeCode": "SURFACE_TRANSPORT"
+    }
   },
   {
     "id": "CAR-005",
@@ -82,7 +118,16 @@
     "status": "active",
     "coldChainCapable": true,
     "operatingRoutes": ["RT-002", "RT-005"],
-    "notes": "Cold-chain specialist. Preferred alternative carrier for vaccine/pharma shipments. Available at Pune."
+    "notes": "Cold-chain specialist. Preferred alternative carrier for vaccine/pharma shipments. Available at Pune.",
+    "analytics": {
+      "carrierReliabilityScore": 94,
+      "capacityUtilizationPct": 45,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "none",
+      "preferenceRank": 1,
+      "coldChainRating": "specialist",
+      "carrierTypeCode": "COLD_CHAIN_SPECIALIST"
+    }
   },
   {
     "id": "CAR-006",
@@ -99,7 +144,16 @@
     "status": "active",
     "coldChainCapable": false,
     "operatingRoutes": ["RT-007", "RT-009"],
-    "notes": "Government-owned rail logistics. High capacity on DFC. No refrigerated rakes available."
+    "notes": "Government-owned rail logistics. High capacity on DFC. No refrigerated rakes available.",
+    "analytics": {
+      "carrierReliabilityScore": 85,
+      "capacityUtilizationPct": 20,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "low",
+      "preferenceRank": 4,
+      "coldChainRating": "none",
+      "carrierTypeCode": "RAIL_FREIGHT"
+    }
   },
   {
     "id": "CAR-007",
@@ -116,6 +170,15 @@
     "status": "active",
     "coldChainCapable": false,
     "operatingRoutes": ["RT-004", "RT-008"],
-    "notes": "South India surface specialist. Chennai-Bengaluru corridor expertise."
+    "notes": "South India surface specialist. Chennai-Bengaluru corridor expertise.",
+    "analytics": {
+      "carrierReliabilityScore": 87,
+      "capacityUtilizationPct": 55,
+      "isAvailableForAssignment": true,
+      "disruptionRisk": "medium",
+      "preferenceRank": 5,
+      "coldChainRating": "none",
+      "carrierTypeCode": "SURFACE_TRANSPORT"
+    }
   }
 ]

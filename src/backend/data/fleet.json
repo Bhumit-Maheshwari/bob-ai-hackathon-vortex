@@ -17,7 +17,17 @@
     "lastService": "2026-01-10",
     "coldChainEquipped": true,
     "temperatureRange": { "min": -20, "max": 10, "unit": "°C" },
-    "notes": "Idle. Cold-chain equipped. Recommended for redeployment to collect SHP-102 via RT-002."
+    "notes": "Idle. Cold-chain equipped. Recommended for redeployment to collect SHP-102 via RT-002.",
+    "scenarioTag": "H_IDLE_REDEPLOYMENT",
+    "analytics": {
+      "fleetUtilizationPct": 0,
+      "availableCapacityTonnes": 8.0,
+      "redeploymentPriority": "critical",
+      "isRedeploymentCandidate": true,
+      "redeploymentReason": "SHP-102 cold-chain emergency",
+      "coldChainScore": 95,
+      "proximityToAffectedShipment": "near"
+    }
   },
   {
     "id": "TR-102",
@@ -37,7 +47,17 @@
     "lastService": "2026-01-05",
     "coldChainEquipped": true,
     "temperatureRange": { "min": -20, "max": 10, "unit": "°C" },
-    "notes": "Currently loaded. Delivering SHP-108 insulin from Chennai via RT-005."
+    "notes": "Currently loaded. Delivering SHP-108 insulin from Chennai via RT-005.",
+    "scenarioTag": "E_TEMPERATURE_SENSITIVE",
+    "analytics": {
+      "fleetUtilizationPct": 83,
+      "availableCapacityTonnes": 2.5,
+      "redeploymentPriority": "low",
+      "isRedeploymentCandidate": false,
+      "redeploymentReason": null,
+      "coldChainScore": 92,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-103",
@@ -57,7 +77,17 @@
     "lastService": "2025-12-28",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Carrying SHP-106 industrial chemicals from Mundra. High utilisation."
+    "notes": "Carrying SHP-106 industrial chemicals from Mundra. High utilisation.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "fleetUtilizationPct": 93,
+      "availableCapacityTonnes": 2.0,
+      "redeploymentPriority": "none",
+      "isRedeploymentCandidate": false,
+      "redeploymentReason": null,
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-104",
@@ -73,11 +103,21 @@
     "carrier": "CAR-004",
     "utilization": 45,
     "utilizationUnit": "percent",
-    "notes": "Partially loaded with SHP-109. Remaining 11 tonnes available for additional consignment.",
     "driver": "Kavya Nair",
     "lastService": "2026-01-12",
     "coldChainEquipped": false,
-    "temperatureRange": null
+    "temperatureRange": null,
+    "notes": "Partially loaded with SHP-109. Remaining 11 tonnes available for additional consignment.",
+    "scenarioTag": "B_MEDIUM_RISK",
+    "analytics": {
+      "fleetUtilizationPct": 45,
+      "availableCapacityTonnes": 11.0,
+      "redeploymentPriority": "medium",
+      "isRedeploymentCandidate": true,
+      "redeploymentReason": "Partial load – headspace available",
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-105",
@@ -97,7 +137,17 @@
     "lastService": "2025-12-15",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Transporting SHP-105 steel coils. High utilisation."
+    "notes": "Transporting SHP-105 steel coils. High utilisation.",
+    "scenarioTag": "C_HIGH_RISK",
+    "analytics": {
+      "fleetUtilizationPct": 91,
+      "availableCapacityTonnes": 2.0,
+      "redeploymentPriority": "none",
+      "isRedeploymentCandidate": false,
+      "redeploymentReason": null,
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-106",
@@ -117,7 +167,17 @@
     "lastService": "2026-01-08",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Carrying SHP-104 automotive parts. Delayed on RT-004 due to DIS-003 weather advisory."
+    "notes": "Carrying SHP-104 automotive parts. Delayed on RT-004 due to DIS-003 weather advisory.",
+    "scenarioTag": "F_DELAYED",
+    "analytics": {
+      "fleetUtilizationPct": 88,
+      "availableCapacityTonnes": 2.2,
+      "redeploymentPriority": "none",
+      "isRedeploymentCandidate": false,
+      "redeploymentReason": null,
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-107",
@@ -137,7 +197,17 @@
     "lastService": "2026-01-14",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Low utilisation. Loaded with SHP-112 ceramics. 26 tonnes headspace available for additional cargo."
+    "notes": "Low utilisation. Loaded with SHP-112 ceramics. 26 tonnes headspace available for additional cargo.",
+    "scenarioTag": "B_MEDIUM_RISK",
+    "analytics": {
+      "fleetUtilizationPct": 35,
+      "availableCapacityTonnes": 26.0,
+      "redeploymentPriority": "medium",
+      "isRedeploymentCandidate": true,
+      "redeploymentReason": "Low utilisation – large headspace",
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-108",
@@ -157,7 +227,17 @@
     "lastService": "2026-01-07",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Fully loaded with SHP-107 FMCG. En route to Pune via RT-002."
+    "notes": "Fully loaded with SHP-107 FMCG. En route to Pune via RT-002.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "fleetUtilizationPct": 100,
+      "availableCapacityTonnes": 0,
+      "redeploymentPriority": "none",
+      "isRedeploymentCandidate": false,
+      "redeploymentReason": null,
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   },
   {
     "id": "TR-109",
@@ -177,6 +257,16 @@
     "lastService": "2026-01-18",
     "coldChainEquipped": false,
     "temperatureRange": null,
-    "notes": "Idle at Jaipur depot. Available for redeployment on Ahmedabad–Delhi corridor."
+    "notes": "Idle at Jaipur depot. Available for redeployment on Ahmedabad–Delhi corridor.",
+    "scenarioTag": "H_IDLE_REDEPLOYMENT",
+    "analytics": {
+      "fleetUtilizationPct": 0,
+      "availableCapacityTonnes": 20.0,
+      "redeploymentPriority": "medium",
+      "isRedeploymentCandidate": true,
+      "redeploymentReason": "Idle – no current assignment",
+      "coldChainScore": 0,
+      "proximityToAffectedShipment": "distant"
+    }
   }
 ]

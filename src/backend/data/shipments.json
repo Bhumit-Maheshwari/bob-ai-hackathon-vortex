@@ -6,6 +6,7 @@
     "destination": "Delhi NCR ICD (Tughlakabad)",
     "currentLocation": "Ahmedabad Distribution Centre",
     "cargoType": "Electronics – Consumer Goods",
+    "cargoCategory": "general",
     "priority": "standard",
     "weight": 18.5,
     "weightUnit": "tonnes",
@@ -16,7 +17,18 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "Consumer electronics from Mundra SEZ. Moving via NH-48 corridor. On schedule."
+    "description": "Consumer electronics from Mundra SEZ. Moving via NH-48 corridor. On schedule.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "shipmentPriorityScore": 20,
+      "delayRiskScore": 8,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 8,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-102",
@@ -25,6 +37,7 @@
     "destination": "Pune Warehouse",
     "currentLocation": "Mumbai Port (JNPT) – Yard Hold",
     "cargoType": "Pharmaceuticals – Vaccines (DTP, Hepatitis B)",
+    "cargoCategory": "pharma",
     "priority": "critical",
     "weight": 3.2,
     "weightUnit": "tonnes",
@@ -36,9 +49,21 @@
     "temperatureSensitive": true,
     "requiredTemperatureRange": { "min": 2, "max": 8, "unit": "°C" },
     "description": "Vaccine shipment (DTP + Hepatitis B) destined for Pune cold storage. Held at JNPT due to port strike (DIS-001). Primary carrier CAR-001 disrupted. Cold-chain integrity at risk – temperature sensor recording excursion near 11.4°C. Requires immediate rerouting via RT-002 with carrier CAR-005 (Snowman Logistics) or CAR-002 (Blue Dart). Vehicle TR-101 is idle and available for redeployment.",
+    "activeDisruption": "DIS-001",
     "alternativeRoutes": ["RT-002"],
     "alternativeCarriers": ["CAR-002", "CAR-005"],
-    "suggestedVehicle": "TR-101"
+    "suggestedVehicle": "TR-101",
+    "scenarioTag": "D_CRITICAL",
+    "analytics": {
+      "shipmentPriorityScore": 100,
+      "delayRiskScore": 95,
+      "coldChainRisk": 95,
+      "disruptionExposure": "critical",
+      "overallRiskScore": 97,
+      "estimatedDelayHours": 48,
+      "actionRequired": true,
+      "actionType": "EMERGENCY_REROUTE_AND_CARRIER_SWAP"
+    }
   },
   {
     "id": "SHP-103",
@@ -47,6 +72,7 @@
     "destination": "Mumbai Port (JNPT)",
     "currentLocation": "Kota, Rajasthan",
     "cargoType": "Textiles – Garment Export",
+    "cargoCategory": "general",
     "priority": "standard",
     "weight": 22.0,
     "weightUnit": "tonnes",
@@ -58,8 +84,20 @@
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
     "description": "Garment export on rail from Tughlakabad ICD to JNPT. Route RT-006 blocked due to port strike. Train halted at Kota. Recommend diversion to Mundra via RT-007.",
+    "activeDisruption": "DIS-001",
     "alternativeRoutes": ["RT-007"],
-    "alternativeCarriers": ["CAR-004"]
+    "alternativeCarriers": ["CAR-004"],
+    "scenarioTag": "G_DISRUPTION_AFFECTED",
+    "analytics": {
+      "shipmentPriorityScore": 30,
+      "delayRiskScore": 82,
+      "coldChainRisk": 0,
+      "disruptionExposure": "high",
+      "overallRiskScore": 78,
+      "estimatedDelayHours": 72,
+      "actionRequired": true,
+      "actionType": "REROUTE"
+    }
   },
   {
     "id": "SHP-104",
@@ -68,6 +106,7 @@
     "destination": "Bengaluru Logistics Hub",
     "currentLocation": "Tindivanam, Tamil Nadu",
     "cargoType": "Automotive Parts – OEM",
+    "cargoCategory": "industrial",
     "priority": "high",
     "weight": 15.8,
     "weightUnit": "tonnes",
@@ -79,8 +118,20 @@
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
     "description": "OEM automotive parts from Chennai port. Delayed due to waterlogging on NH-48 near Tindivanam (DIS-003). Carrier CAR-007 advises 5-hour delay. Alternative route RT-005 via Salem available.",
+    "activeDisruption": "DIS-003",
     "alternativeRoutes": ["RT-005"],
-    "alternativeCarriers": ["CAR-003"]
+    "alternativeCarriers": ["CAR-003"],
+    "scenarioTag": "F_DELAYED",
+    "analytics": {
+      "shipmentPriorityScore": 60,
+      "delayRiskScore": 55,
+      "coldChainRisk": 0,
+      "disruptionExposure": "medium",
+      "overallRiskScore": 52,
+      "estimatedDelayHours": 5,
+      "actionRequired": true,
+      "actionType": "REROUTE"
+    }
   },
   {
     "id": "SHP-105",
@@ -89,6 +140,7 @@
     "destination": "Delhi NCR ICD (Tughlakabad)",
     "currentLocation": "Varanasi, Uttar Pradesh",
     "cargoType": "Steel Coils",
+    "cargoCategory": "industrial",
     "priority": "standard",
     "weight": 40.0,
     "weightUnit": "tonnes",
@@ -100,8 +152,20 @@
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
     "description": "Steel coil consignment on road from Kolkata. Delayed at Varanasi due to road construction (DIS-004). Rail alternative RT-009 available via CONCOR.",
+    "activeDisruption": "DIS-004",
     "alternativeRoutes": ["RT-009"],
-    "alternativeCarriers": ["CAR-006"]
+    "alternativeCarriers": ["CAR-006"],
+    "scenarioTag": "C_HIGH_RISK",
+    "analytics": {
+      "shipmentPriorityScore": 25,
+      "delayRiskScore": 55,
+      "coldChainRisk": 0,
+      "disruptionExposure": "medium",
+      "overallRiskScore": 48,
+      "estimatedDelayHours": 5,
+      "actionRequired": true,
+      "actionType": "REROUTE"
+    }
   },
   {
     "id": "SHP-106",
@@ -110,6 +174,7 @@
     "destination": "Ahmedabad Distribution Centre",
     "currentLocation": "Gandhidham, Gujarat",
     "cargoType": "Chemicals – Industrial Solvents",
+    "cargoCategory": "hazmat",
     "priority": "standard",
     "weight": 28.0,
     "weightUnit": "tonnes",
@@ -120,7 +185,18 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "Industrial solvents from Mundra. On-time. No current disruptions on RT-003."
+    "description": "Industrial solvents from Mundra. On-time. No current disruptions on RT-003.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "shipmentPriorityScore": 22,
+      "delayRiskScore": 7,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 7,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-107",
@@ -129,6 +205,7 @@
     "destination": "Pune Warehouse",
     "currentLocation": "Khopoli, Maharashtra",
     "cargoType": "FMCG – Packaged Foods",
+    "cargoCategory": "fmcg",
     "priority": "high",
     "weight": 12.5,
     "weightUnit": "tonnes",
@@ -139,7 +216,18 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "FMCG shipment via Nhava Sheva ICD to Pune. Using alternative route RT-002 to avoid port strike impact. On schedule."
+    "description": "FMCG shipment via Nhava Sheva ICD to Pune. Using alternative route RT-002 to avoid port strike impact. On schedule.",
+    "scenarioTag": "B_MEDIUM_RISK",
+    "analytics": {
+      "shipmentPriorityScore": 55,
+      "delayRiskScore": 10,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 12,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-108",
@@ -148,6 +236,7 @@
     "destination": "Bengaluru Logistics Hub",
     "currentLocation": "Salem, Tamil Nadu",
     "cargoType": "Pharmaceuticals – Insulin (Cold Chain)",
+    "cargoCategory": "pharma",
     "priority": "critical",
     "weight": 1.8,
     "weightUnit": "tonnes",
@@ -158,7 +247,18 @@
     "riskLevel": "low",
     "temperatureSensitive": true,
     "requiredTemperatureRange": { "min": 2, "max": 8, "unit": "°C" },
-    "description": "Insulin shipment from Chennai using alternative route RT-005 via Salem to avoid cyclone weather (DIS-003). Snowman Logistics handling cold chain. Sensors nominal."
+    "description": "Insulin shipment from Chennai using alternative route RT-005 via Salem to avoid cyclone weather (DIS-003). Snowman Logistics handling cold chain. Sensors nominal.",
+    "scenarioTag": "E_TEMPERATURE_SENSITIVE",
+    "analytics": {
+      "shipmentPriorityScore": 90,
+      "delayRiskScore": 12,
+      "coldChainRisk": 15,
+      "disruptionExposure": "none",
+      "overallRiskScore": 18,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-109",
@@ -167,6 +267,7 @@
     "destination": "Delhi NCR ICD (Tughlakabad)",
     "currentLocation": "Jaipur, Rajasthan",
     "cargoType": "Apparel – Fast Fashion",
+    "cargoCategory": "general",
     "priority": "standard",
     "weight": 9.0,
     "weightUnit": "tonnes",
@@ -177,7 +278,18 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "Fast fashion export packing materials. In transit via NH-48. Normal conditions."
+    "description": "Fast fashion export packing materials. In transit via NH-48. Normal conditions.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "shipmentPriorityScore": 20,
+      "delayRiskScore": 6,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 6,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-110",
@@ -186,6 +298,7 @@
     "destination": "Delhi NCR ICD (Tughlakabad)",
     "currentLocation": "Patna, Bihar",
     "cargoType": "Agricultural Produce – Frozen Shrimp",
+    "cargoCategory": "perishable",
     "priority": "high",
     "weight": 6.5,
     "weightUnit": "tonnes",
@@ -197,8 +310,20 @@
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
     "description": "Frozen shrimp export for Delhi cold storage. Using RT-008 which is affected by Varanasi road closure (DIS-004). Risk of spoilage if delayed beyond 6 hours. Rail alternative RT-009 recommended.",
+    "activeDisruption": "DIS-004",
     "alternativeRoutes": ["RT-009"],
-    "alternativeCarriers": ["CAR-006"]
+    "alternativeCarriers": ["CAR-006"],
+    "scenarioTag": "C_HIGH_RISK",
+    "analytics": {
+      "shipmentPriorityScore": 65,
+      "delayRiskScore": 72,
+      "coldChainRisk": 30,
+      "disruptionExposure": "medium",
+      "overallRiskScore": 70,
+      "estimatedDelayHours": 5,
+      "actionRequired": true,
+      "actionType": "REROUTE"
+    }
   },
   {
     "id": "SHP-111",
@@ -207,6 +332,7 @@
     "destination": "Delhi NCR ICD (Tughlakabad)",
     "currentLocation": "Mundra Port",
     "cargoType": "Industrial Machinery – Compressors",
+    "cargoCategory": "industrial",
     "priority": "standard",
     "weight": 32.0,
     "weightUnit": "tonnes",
@@ -217,7 +343,18 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "Heavy machinery awaiting dispatch from Mundra. Paperwork cleared. Scheduled departure 2026-01-21 06:00 IST."
+    "description": "Heavy machinery awaiting dispatch from Mundra. Paperwork cleared. Scheduled departure 2026-01-21 06:00 IST.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "shipmentPriorityScore": 18,
+      "delayRiskScore": 5,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 5,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   },
   {
     "id": "SHP-112",
@@ -226,6 +363,7 @@
     "destination": "Mundra Port",
     "currentLocation": "Ajmer, Rajasthan",
     "cargoType": "Ceramics – Export",
+    "cargoCategory": "general",
     "priority": "standard",
     "weight": 14.0,
     "weightUnit": "tonnes",
@@ -236,6 +374,17 @@
     "riskLevel": "low",
     "temperatureSensitive": false,
     "requiredTemperatureRange": null,
-    "description": "Ceramic tile export via DFC western arm to Mundra. On schedule. No disruptions."
+    "description": "Ceramic tile export via DFC western arm to Mundra. On schedule. No disruptions.",
+    "scenarioTag": "A_NORMAL",
+    "analytics": {
+      "shipmentPriorityScore": 20,
+      "delayRiskScore": 9,
+      "coldChainRisk": 0,
+      "disruptionExposure": "none",
+      "overallRiskScore": 9,
+      "estimatedDelayHours": 0,
+      "actionRequired": false,
+      "actionType": null
+    }
   }
 ]

@@ -8,7 +8,15 @@
     "humidity": 68,
     "location": "Mumbai Port (JNPT) – Gate 4 Yard",
     "status": "normal",
-    "notes": "Shipment arrived at JNPT yard. Temperature within range (2–8°C)."
+    "notes": "Shipment arrived at JNPT yard. Temperature within range (2–8°C).",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -1.2,
+      "deviationFromUpperLimit": -4.2,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-002",
@@ -19,7 +27,15 @@
     "humidity": 69,
     "location": "Mumbai Port (JNPT) – Gate 4 Yard",
     "status": "normal",
-    "notes": "Normal reading. Reefer unit operating correctly."
+    "notes": "Normal reading. Reefer unit operating correctly.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -0.8,
+      "deviationFromUpperLimit": -3.8,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-003",
@@ -30,7 +46,15 @@
     "humidity": 71,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "normal",
-    "notes": "Strike begins at 06:00. Shipment immobilised in open yard. Temperature still within range."
+    "notes": "Strike begins at 06:00. Shipment immobilised in open yard. Temperature still within range.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 0.1,
+      "deviationFromUpperLimit": -2.9,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-004",
@@ -41,7 +65,15 @@
     "humidity": 74,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "warning",
-    "notes": "Temperature rising. Reefer on generator power but ambient heat affecting insulation. Warning threshold approaching."
+    "notes": "Temperature rising. Reefer on generator power but ambient heat affecting insulation. Warning threshold approaching.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 1.7,
+      "deviationFromUpperLimit": -1.3,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 1,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-005",
@@ -52,7 +84,15 @@
     "humidity": 76,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "warning",
-    "notes": "Near upper limit of 8°C. Carrier CAR-001 unavailable. Escalation required."
+    "notes": "Near upper limit of 8°C. Carrier CAR-001 unavailable. Escalation required.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 2.4,
+      "deviationFromUpperLimit": -0.6,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 1,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-006",
@@ -63,7 +103,15 @@
     "humidity": 78,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "high",
-    "notes": "Temperature exceeded upper limit (8°C). Generator refuelling delay. Alert triggered."
+    "notes": "Temperature exceeded upper limit (8°C). Generator refuelling delay. Alert triggered.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 3.9,
+      "deviationFromUpperLimit": 0.9,
+      "isExcursion": true,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 2,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-007",
@@ -74,7 +122,15 @@
     "humidity": 80,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "high",
-    "notes": "Continued temperature rise. Reefer unit possibly losing efficiency in ambient 34°C."
+    "notes": "Continued temperature rise. Reefer unit possibly losing efficiency in ambient 34°C.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 5.1,
+      "deviationFromUpperLimit": 2.1,
+      "isExcursion": true,
+      "excursionDurationMinutes": 30,
+      "alertLevel": 2,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-008",
@@ -85,7 +141,15 @@
     "humidity": 82,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "critical",
-    "notes": "CRITICAL EXCURSION: Temperature reached 11.4°C. Vaccines (DTP, Hepatitis B) require 2–8°C storage (prototype threshold). Immediate action required. Recommend emergency transfer to alternate cold-chain vehicle TR-101 at Nhava Sheva ICD and dispatch via RT-002 with carrier CAR-005 or CAR-002."
+    "notes": "CRITICAL EXCURSION: Temperature reached 11.4°C. Vaccines (DTP, Hepatitis B) require 2–8°C storage (prototype threshold). Immediate action required. Recommend emergency transfer to alternate cold-chain vehicle TR-101 at Nhava Sheva ICD and dispatch via RT-002 with carrier CAR-005 or CAR-002.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 6.4,
+      "deviationFromUpperLimit": 3.4,
+      "isExcursion": true,
+      "excursionDurationMinutes": 60,
+      "alertLevel": 3,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-009",
@@ -96,7 +160,15 @@
     "humidity": 81,
     "location": "Mumbai Port (JNPT) – Strike Zone Hold",
     "status": "critical",
-    "notes": "Secondary sensor confirms excursion. Both sensors agree. Critical condition validated."
+    "notes": "Secondary sensor confirms excursion. Both sensors agree. Critical condition validated.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 6.1,
+      "deviationFromUpperLimit": 3.1,
+      "isExcursion": true,
+      "excursionDurationMinutes": 60,
+      "alertLevel": 3,
+      "triggerAlert": true
+    }
   },
   {
     "id": "CC-010",
@@ -107,7 +179,15 @@
     "humidity": 65,
     "location": "Chennai Port – Loading Bay",
     "status": "normal",
-    "notes": "Insulin shipment loaded at Chennai. Temperature nominal."
+    "notes": "Insulin shipment loaded at Chennai. Temperature nominal.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -1.8,
+      "deviationFromUpperLimit": -4.8,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-011",
@@ -118,7 +198,15 @@
     "humidity": 66,
     "location": "Villupuram, Tamil Nadu",
     "status": "normal",
-    "notes": "In transit via RT-005 (Salem route). Temperature stable."
+    "notes": "In transit via RT-005 (Salem route). Temperature stable.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -1.5,
+      "deviationFromUpperLimit": -4.5,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-012",
@@ -129,7 +217,15 @@
     "humidity": 67,
     "location": "Salem, Tamil Nadu",
     "status": "normal",
-    "notes": "Rest stop at Salem depot. Reefer unit checked and verified operational."
+    "notes": "Rest stop at Salem depot. Reefer unit checked and verified operational.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -0.9,
+      "deviationFromUpperLimit": -3.9,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-013",
@@ -140,7 +236,15 @@
     "humidity": 65,
     "location": "Hosur, Tamil Nadu",
     "status": "normal",
-    "notes": "Approaching Bengaluru. All readings nominal."
+    "notes": "Approaching Bengaluru. All readings nominal.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -1.1,
+      "deviationFromUpperLimit": -4.1,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-014",
@@ -151,7 +255,15 @@
     "humidity": 68,
     "location": "Salem, Tamil Nadu",
     "status": "normal",
-    "notes": "Secondary sensor – Salem rest stop. Consistent with primary reading."
+    "notes": "Secondary sensor – Salem rest stop. Consistent with primary reading.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": -0.7,
+      "deviationFromUpperLimit": -3.7,
+      "isExcursion": false,
+      "excursionDurationMinutes": 0,
+      "alertLevel": 0,
+      "triggerAlert": false
+    }
   },
   {
     "id": "CC-015",
@@ -162,6 +274,14 @@
     "humidity": 72,
     "location": "Krishnagiri, Tamil Nadu",
     "status": "warning",
-    "notes": "Temporary spike possibly due to door opening at checkpoint. Recovered within 20 minutes. Not a sustained excursion."
+    "notes": "Temporary spike possibly due to door opening at checkpoint. Recovered within 20 minutes. Not a sustained excursion.",
+    "analytics": {
+      "temperatureDeviationFromMidpoint": 1.8,
+      "deviationFromUpperLimit": -1.2,
+      "isExcursion": false,
+      "excursionDurationMinutes": 20,
+      "alertLevel": 1,
+      "triggerAlert": true
+    }
   }
 ]

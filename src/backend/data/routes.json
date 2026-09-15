@@ -7,14 +7,26 @@
     "distance": 170,
     "distanceUnit": "km",
     "estimatedTime": "4h",
+    "estimatedTimeHours": 4.0,
     "riskLevel": "high",
     "capacityAvailable": 0,
+    "capacityUnit": "tonnes",
     "cost": 12000,
     "costUnit": "INR",
     "affected": true,
     "affectedBy": "DIS-001",
     "mode": "road",
-    "notes": "Primary road corridor via NH-48. Blocked due to Mumbai port strike (DIS-001)."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "Primary road corridor via NH-48. Blocked due to Mumbai port strike (DIS-001).",
+    "analytics": {
+      "routeRiskScore": 95,
+      "costPerKm": 70.6,
+      "isOperational": false,
+      "congestionLevel": "blocked",
+      "reliabilityScore": 10,
+      "recommendForReroute": false
+    }
   },
   {
     "id": "RT-002",
@@ -24,14 +36,26 @@
     "distance": 245,
     "distanceUnit": "km",
     "estimatedTime": "5h 30m",
+    "estimatedTimeHours": 5.5,
     "riskLevel": "low",
     "capacityAvailable": 18,
+    "capacityUnit": "tonnes",
     "cost": 15500,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "road",
-    "notes": "Alternative route via NH-160 through Nashik bypass. Operational during Mumbai port strike."
+    "isPrimary": false,
+    "alternativeFor": "RT-001",
+    "notes": "Alternative route via NH-160 through Nashik bypass. Operational during Mumbai port strike.",
+    "analytics": {
+      "routeRiskScore": 12,
+      "costPerKm": 63.3,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 91,
+      "recommendForReroute": true
+    }
   },
   {
     "id": "RT-003",
@@ -41,14 +65,26 @@
     "distance": 380,
     "distanceUnit": "km",
     "estimatedTime": "6h",
+    "estimatedTimeHours": 6.0,
     "riskLevel": "low",
     "capacityAvailable": 30,
+    "capacityUnit": "tonnes",
     "cost": 18000,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "road",
-    "notes": "Standard NH-947 corridor. No current disruptions."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "Standard NH-947 corridor. No current disruptions.",
+    "analytics": {
+      "routeRiskScore": 8,
+      "costPerKm": 47.4,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 93,
+      "recommendForReroute": false
+    }
   },
   {
     "id": "RT-004",
@@ -58,14 +94,26 @@
     "distance": 340,
     "distanceUnit": "km",
     "estimatedTime": "6h 30m",
+    "estimatedTimeHours": 6.5,
     "riskLevel": "medium",
     "capacityAvailable": 12,
+    "capacityUnit": "tonnes",
     "cost": 20000,
     "costUnit": "INR",
     "affected": true,
     "affectedBy": "DIS-003",
     "mode": "road",
-    "notes": "NH-48 corridor. Partially affected by cyclone weather advisory (DIS-003)."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "NH-48 corridor. Partially affected by cyclone weather advisory (DIS-003).",
+    "analytics": {
+      "routeRiskScore": 55,
+      "costPerKm": 58.8,
+      "isOperational": true,
+      "congestionLevel": "moderate",
+      "reliabilityScore": 60,
+      "recommendForReroute": false
+    }
   },
   {
     "id": "RT-005",
@@ -75,14 +123,26 @@
     "distance": 410,
     "distanceUnit": "km",
     "estimatedTime": "7h 45m",
+    "estimatedTimeHours": 7.75,
     "riskLevel": "low",
     "capacityAvailable": 25,
+    "capacityUnit": "tonnes",
     "cost": 23500,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "road",
-    "notes": "Alternative via NH-79 through Salem. Clear of weather disruption."
+    "isPrimary": false,
+    "alternativeFor": "RT-004",
+    "notes": "Alternative via NH-79 through Salem. Clear of weather disruption.",
+    "analytics": {
+      "routeRiskScore": 10,
+      "costPerKm": 57.3,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 89,
+      "recommendForReroute": true
+    }
   },
   {
     "id": "RT-006",
@@ -92,14 +152,26 @@
     "distance": 1450,
     "distanceUnit": "km",
     "estimatedTime": "38h",
+    "estimatedTimeHours": 38.0,
     "riskLevel": "high",
     "capacityAvailable": 0,
+    "capacityUnit": "tonnes",
     "cost": 55000,
     "costUnit": "INR",
     "affected": true,
     "affectedBy": "DIS-001",
     "mode": "rail",
-    "notes": "JNPT rail link blocked due to port strike. No new rakes being accepted."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "JNPT rail link blocked due to port strike. No new rakes being accepted.",
+    "analytics": {
+      "routeRiskScore": 92,
+      "costPerKm": 37.9,
+      "isOperational": false,
+      "congestionLevel": "blocked",
+      "reliabilityScore": 8,
+      "recommendForReroute": false
+    }
   },
   {
     "id": "RT-007",
@@ -109,14 +181,26 @@
     "distance": 1100,
     "distanceUnit": "km",
     "estimatedTime": "30h",
+    "estimatedTimeHours": 30.0,
     "riskLevel": "low",
     "capacityAvailable": 40,
+    "capacityUnit": "tonnes",
     "cost": 48000,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "rail",
-    "notes": "Dedicated Freight Corridor (DFC) western arm. Fully operational."
+    "isPrimary": false,
+    "alternativeFor": "RT-006",
+    "notes": "Dedicated Freight Corridor (DFC) western arm. Fully operational.",
+    "analytics": {
+      "routeRiskScore": 14,
+      "costPerKm": 43.6,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 88,
+      "recommendForReroute": true
+    }
   },
   {
     "id": "RT-008",
@@ -126,14 +210,26 @@
     "distance": 1500,
     "distanceUnit": "km",
     "estimatedTime": "28h",
+    "estimatedTimeHours": 28.0,
     "riskLevel": "medium",
     "capacityAvailable": 20,
+    "capacityUnit": "tonnes",
     "cost": 62000,
     "costUnit": "INR",
     "affected": true,
     "affectedBy": "DIS-004",
     "mode": "road",
-    "notes": "NH-19 partially blocked near Varanasi due to road construction (DIS-004)."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "NH-19 partially blocked near Varanasi due to road construction (DIS-004).",
+    "analytics": {
+      "routeRiskScore": 52,
+      "costPerKm": 41.3,
+      "isOperational": true,
+      "congestionLevel": "moderate",
+      "reliabilityScore": 62,
+      "recommendForReroute": false
+    }
   },
   {
     "id": "RT-009",
@@ -143,14 +239,26 @@
     "distance": 1530,
     "distanceUnit": "km",
     "estimatedTime": "32h",
+    "estimatedTimeHours": 32.0,
     "riskLevel": "low",
     "capacityAvailable": 35,
+    "capacityUnit": "tonnes",
     "cost": 54000,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "rail",
-    "notes": "Eastern DFC. Operational — preferred diversion for Kolkata road blockage."
+    "isPrimary": false,
+    "alternativeFor": "RT-008",
+    "notes": "Eastern DFC. Operational — preferred diversion for Kolkata road blockage.",
+    "analytics": {
+      "routeRiskScore": 16,
+      "costPerKm": 35.3,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 86,
+      "recommendForReroute": true
+    }
   },
   {
     "id": "RT-010",
@@ -160,13 +268,25 @@
     "distance": 1120,
     "distanceUnit": "km",
     "estimatedTime": "20h",
+    "estimatedTimeHours": 20.0,
     "riskLevel": "low",
     "capacityAvailable": 28,
+    "capacityUnit": "tonnes",
     "cost": 42000,
     "costUnit": "INR",
     "affected": false,
     "affectedBy": null,
     "mode": "road",
-    "notes": "NH-8 / NH-48 corridor. Standard operating conditions."
+    "isPrimary": true,
+    "alternativeFor": null,
+    "notes": "NH-8 / NH-48 corridor. Standard operating conditions.",
+    "analytics": {
+      "routeRiskScore": 9,
+      "costPerKm": 37.5,
+      "isOperational": true,
+      "congestionLevel": "clear",
+      "reliabilityScore": 92,
+      "recommendForReroute": false
+    }
   }
 ]
